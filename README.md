@@ -1,31 +1,27 @@
 # Token Based Authentication
 ## Introduction
 Token Authentication is a way to authorize users by using an API Key or Auth Token. The way Django REST Framework implements Token Authentication requires you to add a header for each request. This header will be in the following format:
-```
-bash  
+``` bash  
 Authorization: Token 93138ba960dfb4ef2eef6b907718ae04400f606a
 ```
 * "Authorization" is the header key.
 * "Token 93138ba960dfb4ef2eef6b907718ae04400f606a" is the header value. 
 
 ## Install the Requirements:
-```
-bash 
+``` bash 
 pip install -r requirements.txt  
 ```
 ## Preliminary Configuration:
 Configure the authentication scheme in settings.py
 ***TokenExample/settings.py***
-```
-bash
+``` bash
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework.authentication.TokenAuthentication',
     ),
 ```
 Add an app to your INSTALLED_APPS array
-```
-bash
+``` bash
 INSTALLED_APPS = [
     # Django Apps
     'django.contrib.admin',
@@ -45,8 +41,7 @@ INSTALLED_APPS = [
 ```
 ## Implement token authentication
 ***myapi/core/views.py**
-```
-bash
+``` bash
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated  # <-- Here
@@ -60,29 +55,27 @@ class HelloView(APIView):
         return Response(content)
 ```
 Create the superuser
-```
-bash
+``` bash
 python manage.py createsuperuser 
 ```
 The easiest way to generate a token using the command line utility:
-```
-bash
+``` bash
 python manage.py drf_create_token username
 ```
 * This piece of information, the random string is what we are going to use next to authenticate.
 ### How to use the code:
-Open Postman. Make sure the dropdown says, **GET** and address bar- http://127.0.0.1:8000/hello
-Go to header add
-* key: Authorization
-* value: Token --generated token--
-Make sure under Authorization **No Auth** is selected.
-Click send you should retrive the content
+* Open Postman. Make sure the dropdown says, **GET** and address bar- http://127.0.0.1:8000/hello
+* Click send you will retrive "Authentication credentials were not provided."
+* Go to header add
+    * key: Authorization
+    * value: Token --generated token--
+* Make sure under Authorization **No Auth** is selected.
+* Click send you should retrive the content
 
 ### Other way of creating token:
 The DRF provide an endpoint for the users to request an authentication token using their username and password.
 *** TokenExample/urls.py
-```
-bash
+``` bash
 from django.urls import path
 from rest_framework.authtoken.views import obtain_auth_token  # <-- Here
 from myapi.core import views
@@ -92,5 +85,17 @@ urlpatterns = [
     path('api-token-auth/', obtain_auth_token, name='api_token_auth'),  # <-- And here
 ]
 ```
+### How to use the code:
+* Open Postman. Make sure the dropdown says, **POST** and address bar- http://127.0.0.1:8000/api_token_auth
+* Go to body add
+    * key: username, value: --username
+    * key: password, value: Token --password
+* Click send it generates ***Token***
+* Open new tab Make sure the dropdown says, **GET** and address bar- http://127.0.0.1:8000/hello
+* Go to header add
+    * key: Authorization
+    * value: Token --generated token--
+* Click send you should retrive the content
+
 
 
