@@ -86,10 +86,10 @@ urlpatterns = [
 ]
 ```
 ### How to use the code:
-* Open Postman. Make sure the dropdown says, **POST** and address bar- http://127.0.0.1:8000/api_token_auth
+* Open Postman. Make sure the dropdown says, **POST** and address bar- http://127.0.0.1:8000/api-token-auth/
 * Go to body add
-    * key: username, value: --username
-    * key: password, value: Token --password
+    * key: username, value: <username>
+    * key: password, value: <password>
 * Click send it generates ***Token***
 * Open new tab Make sure the dropdown says, **GET** and address bar- http://127.0.0.1:8000/hello
 * Go to header add
