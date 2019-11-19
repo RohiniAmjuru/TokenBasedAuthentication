@@ -40,7 +40,7 @@ INSTALLED_APPS = [
     ]
 ```
 ## Implement token authentication
-***myapi/core/views.py**
+***TokenExample/core/views.py**
 ``` bash
 from rest_framework.views import APIView
 from rest_framework.response import Response
