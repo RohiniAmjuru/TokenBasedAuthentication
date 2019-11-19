@@ -74,7 +74,7 @@ python manage.py drf_create_token username
 
 ### Other way of creating token:
 The DRF provide an endpoint for the users to request an authentication token using their username and password.
-*** TokenExample/urls.py
+***TokenExample/urls.py
 ``` bash
 from django.urls import path
 from rest_framework.authtoken.views import obtain_auth_token  # <-- Here
